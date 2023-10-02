@@ -1,6 +1,0 @@
-Config (
-  prefix_url_map: {
-      ":g": "https://google.com/search?q=",
-      ":b": "https://search.brave.com/search?q=",
-  }
-)

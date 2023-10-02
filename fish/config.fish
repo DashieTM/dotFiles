@@ -29,6 +29,7 @@ alias cr='cargo run'
 alias grep='rg'
 alias cat='bat'
 alias find='fd'
+alias rm='rip'
 
 # pwd based on the value of _ZO_RESOLVE_SYMLINKS.
 function __zoxide_pwd

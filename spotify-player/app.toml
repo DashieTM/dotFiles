@@ -1,7 +1,0 @@
-theme = "tokyonight-dark"
-client_id = "15e203987c744878bc51bcbcc28a2b37"
-enable_media_control = true
-
-[device]
-volume = 100
-audio_cache = true

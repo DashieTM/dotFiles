@@ -1,3 +1,0 @@
-#!/bin/bash
-echo $(playerctl -p ncspot,%any metadata mpris:artUrl)
-

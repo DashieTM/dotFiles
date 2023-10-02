@@ -1,76 +1,21 @@
 return {
   {
     "rcarriga/nvim-dap-ui",
-    keys = {
-      {
-        "<leader>du",
-        function()
-          require("dapui").toggle()
-        end,
-        silent = true,
-      },
-    },
-    opts = {
-      icons = { expanded = "∩â¥", collapsed = "∩âÜ", circular = "∩äÉ" },
-      mappings = {
-        expand = { "<CR>", "<2-LeftMouse>" },
-        open = "o",
-        remove = "d",
-        edit = "e",
-        repl = "r",
-        toggle = "t",
-      },
-      layouts = {
-        {
-          elements = {
-            { id = "repl", size = 0.30 },
-            { id = "console", size = 0.70 },
-          },
-          size = 0.19,
-          position = "bottom",
-        },
-        {
-          elements = {
-            { id = "scopes", size = 0.30 },
-            { id = "breakpoints", size = 0.20 },
-            { id = "stacks", size = 0.10 },
-            { id = "watches", size = 0.30 },
-          },
-          size = 0.20,
-          position = "right",
-        },
-      },
-      controls = {
-        enabled = true,
-        element = "repl",
-        icons = {
-          pause = "ε½æ",
-          play = "ε½ô",
-          step_into = "ε½ö",
-          step_over = "ε½û ",
-          step_out = "ε½ò",
-          step_back = "ε«Å ",
-          run_last = "ε¼╖ ",
-          terminate = "ε½ù ",
-        },
-      },
-      floating = {
-        max_height = 0.9,
-        max_width = 0.5,
-        border = vim.g.border_chars,
-        mappings = {
-          close = { "q", "<Esc>" },
-        },
-      },
-    },
+    keys = {},
+    opts = {},
     config = function(_, opts)
-      local icons = require("core.icons").dap
-      for name, sign in pairs(icons) do
-        ---@diagnostic disable-next-line: cast-local-type
-        sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define("Dap" .. name, { text = sign[1] })
+      local dap = require("dap")
+      local dapui = require("dapui")
+      dapui.setup(opts)
+      dap.listeners.after.event_initialized["dapui_config"] = function()
+        dapui.open({})
       end
-      require("dapui").setup(opts)
+      dap.listeners.before.event_terminated["dapui_config"] = function()
+        dapui.close({})
+      end
+      dap.listeners.before.event_exited["dapui_config"] = function()
+        dapui.close({})
+      end
     end,
   },
   {
@@ -118,6 +63,11 @@ return {
         type = "executable",
         command = vim.fn.stdpath("data") .. "/mason/packages/bash-debug-adapter/bash-debug-adapter",
         name = "bashdb",
+      }
+      dap.adapters.coreclr = {
+        type = "executable",
+        command = "netcoredbg",
+        args = { "--interpreter=vscode" },
       }
 
       local rust_dap = Get_git_root().cwd
@@ -256,8 +206,11 @@ return {
           name = "launch - netcoredbg",
           request = "launch",
           program = function()
-            return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+            return vim.fn.input("Path to dll: ", Get_git_root().cwd, "file")
           end,
+          -- args = function()
+          --   vim.fn.input("args: ", Get_git_root().cwd, "file")
+          -- end,
         },
       }
       dap.configurations.sh = {

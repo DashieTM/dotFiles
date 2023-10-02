@@ -1,2 +1,0 @@
-#!/bin/bash
-echo $(playerctl metadata  -p ncspot,%any --format "{{ artist }}\n{{ album }}\n{{ title }}")

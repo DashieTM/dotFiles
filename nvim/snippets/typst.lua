@@ -36,8 +36,8 @@ local imageSnippet = s(
     #image("{1}", width: {2}%)
     ]],
     {
-      i(1, "image"),
-      i(2, "width"),
+      i(1, "../../Screenshots/"),
+      i(2, "100"),
     }
   )
 )
@@ -50,8 +50,8 @@ local centerImageSnippet = s(
     #align(center, [#image("{1}", width: {2}%)])
     ]],
     {
-      i(1, "image"),
-      i(2, "width"),
+      i(1, "../../Screenshots"),
+      i(2, "100"),
     }
   )
 )
@@ -70,5 +70,24 @@ local colSnippet = s(
   )
 )
 table.insert(snippets, colSnippet)
+
+local codeSnippet = s(
+  "code-",
+  fmt(
+    [[
+    //typstfmt::off
+    ```{1}
+    {2}
+    ```
+    //typstfmt::on
+
+    ]],
+    {
+      i(1, "lang"),
+      i(2, "code"),
+    }
+  )
+)
+table.insert(snippets, codeSnippet)
 ------------------------------------------------- snippets end
 return snippets, autosnippets

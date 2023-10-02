@@ -1,3 +1,0 @@
-monitor_name = 'whatever'
-utility_command = "echo 'henlo' ;; echo 'pingpang'"
-css_string = "/home/dashie/.config/hypr/hyprstyle.css"

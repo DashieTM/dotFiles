@@ -15,6 +15,7 @@ return {
           return require("lazyvim.util").has("nvim-cmp")
         end,
       },
+      { "Hoffs/omnisharp-extended-lsp.nvim", lazy = true },
     },
     ---@class PluginLspOpts
     opts = {
@@ -69,7 +70,31 @@ return {
         ansiblels = {},
         marksman = {},
         asm_lsp = {},
-        omnisharp = {},
+        omnisharp = {
+          handlers = {
+            ["textDocument/definition"] = function(...)
+              return require("omnisharp_extended").handler(...)
+            end,
+          },
+          inlayHintsOptions = {
+            enableForParameters = true,
+            forLiteralParameters = true,
+            forIndexerParameters = true,
+            forObjectCreationParameters = true,
+            forOtherParameters = true,
+            suppressForParametersThatDifferOnlyBySuffix = false,
+            suppressForParametersThatMatchMethodIntent = false,
+            suppressForParametersThatMatchArgumentName = false,
+            enableForTypes = true,
+            forImplicitVariableTypes = true,
+            forLambdaParameterTypes = true,
+            forImplicitObjectCreation = true,
+          },
+          enable_roslyn_analyzers = true,
+          organize_imports_on_format = true,
+          enable_import_completion = true,
+        },
+        rnix = {},
         rust_analyzer = {
           diagnostics = {
             enable = true,
