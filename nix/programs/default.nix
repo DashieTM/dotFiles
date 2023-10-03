@@ -11,7 +11,6 @@ let
   '';
 in
 {
-  inputs.flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
 
   imports = [
     flatpaks.nixosModules.default
