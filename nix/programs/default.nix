@@ -15,6 +15,7 @@ in
     username = "dashie";
     homeDirectory = "/home/dashie";
     stateVersion = "unstable";
+    activation = { inherit dconfDark; };
   };
 
   manual = {
@@ -22,13 +23,6 @@ in
     json.enable = false;
     manpages.enable = false;
   };
-
-
-  programs.home-manager.enable = true;
-  networking.networkmanager.enable = true;
-  qt.enable = true;
-  qt.platformTheme = "qt5ct";
-  qt.style = "qt5ct";
 
   imports = [
     flatpaks.nixosModules.default
@@ -39,29 +33,23 @@ in
     ../flatpak.nix
   ];
 
-  programs = {
-    firefox = {
-      enable = true;
-      profiles.mihai = { };
-    };
-    fish = { };
-    ripgrep = { };
-    rm-improved = { };
-    bat = { };
-    fd = { };
-    lsd = { };
-    nerdfonts = { };
-    flatpak = { };
-    gnome.gnome-software = { };
-  };
+  home.packages = with pkgs; [
+    firefox
+    fish
+    ripgrep
+    rm-improved
+    bat
+    fd
+    lsd
+    nerdfonts
+    flatpak
+    gnome.gnome-software
+  ];
 
-  home.activation = { inherit dconfDark; };
   services.flatpak.enable = true;
-  environment.etc = {
-    "flatpak/remotes.d/flathub.flatpakrepo".source = pkgs.fetchurl {
-      url = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      # Let this run once and you will get the hash as an error.
-      hash = "";
-    };
-  };
+  programs.home-manager.enable = true;
+  networking.networkmanager.enable = true;
+  qt.enable = true;
+  qt.platformTheme = "qt5ct";
+  qt.style = "qt5ct";
 }

@@ -4,13 +4,13 @@
 }:
 {
 
-  programs = {
-    rustdesk = { };
-    keepassxc = { };
-    nheko = { };
-    kdeconnect = { };
-    nextcloud-client = { };
-    xournalpp = { };
-  };
+  home.packages = with pkgs; [
+    rustdesk
+    keepassxc
+    nheko
+    kdeconnect
+    nextcloud-client
+    xournalpp
+  ];
 
 }
