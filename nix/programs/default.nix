@@ -11,6 +11,24 @@ let
   '';
 in
 {
+  home = {
+    username = "dashie";
+    homeDirectory = "/home/dashie";
+    stateVersion = "unstable";
+  };
+
+  manual = {
+    html.enable = false;
+    json.enable = false;
+    manpages.enable = false;
+  };
+
+
+  programs.home-manager.enable = true;
+  networking.networkmanager.enable = true;
+  qt.enable = true;
+  qt.platformTheme = "qt5ct";
+  qt.style = "qt5ct";
 
   imports = [
     flatpaks.nixosModules.default

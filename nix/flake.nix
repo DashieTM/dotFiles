@@ -17,26 +17,29 @@
       };
     in
     {
-      import = [
-        ./programs/default.nix
-        ./hyprland/default.nix
-      ];
-
-      home = {
-        username = "dashie";
-        homeDirectory = "/home/dashie";
-        stateVersion = "unstable";
+      homeConfigurations."dashie@spaceship" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./hardware/spaceship.nix ];
+      };
+      homeConfigurations."dashie@overheating" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./hardware/overheating.nix ];
+      };
+      homeConfigurations."dashie@marmo" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./hardware/marmo.nix ];
       };
 
-      manual = {
-        html.enable = false;
-        json.enable = false;
-        manpages.enable = false;
+      homeConfigurations."base" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          ./programs/default.nix
+          ./hyprland/default.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+          }
+        ];
       };
-
-      networking.networkmanager.enable = true;
-      qt.enable = true;
-      qt.platformTheme = "qt5ct";
-      qt.style = "qt5ct";
     };
 }
