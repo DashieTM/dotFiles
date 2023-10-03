@@ -2,7 +2,6 @@
 , config
 , ...
 }:
-# media - control and enjoy audio/video
 {
   home.packages = with pkgs; [
     # base audio
@@ -16,10 +15,20 @@
     playerctl
     # images
     imv
+    # videos
+    mpv
     # pdf
     zathura
     # spotify
     ncspot
+    # video editing
+    kdenlive
+    # image creation
+    inkscape
+    gimp
+    krita
+    # recording
+    obs-studio
   ];
 
   programs = {

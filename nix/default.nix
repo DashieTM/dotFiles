@@ -1,8 +1,12 @@
-{
-  lib,
-  self,
-  ...
+{ lib
+, self
+, ...
 }: {
+  import = [
+    ./programs/default.nix
+    ./hyprland/default.nix
+  ];
+
   home = {
     username = "dashie";
     homeDirectory = "/home/dashie";
@@ -15,5 +19,8 @@
     manpages.enable = false;
   };
 
-  programs.home-manager.enable = true;
+  networking.networkmanager.enable = true;
+  qt.enable = true;
+  qt.platformTheme = "qt5ct";
+  qt.style = "qt5ct";
 }
